@@ -9,7 +9,7 @@ import { Component, input } from '@angular/core';
   styleUrl: './text-bubble.component.scss'
 })
 export class TextBubbleComponent {
-  isSendTextBuble = input<boolean>(false)
+  isUserTextBuble = input<boolean>(false)
   imageUrl = input<string>('https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp')
   bubbleText = input<string>('Empty message')
 }

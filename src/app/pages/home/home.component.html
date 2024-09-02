@@ -6,7 +6,7 @@
 <div class="m-4">
 
   @for (entry of entries; track $index) {
-  <text-bubble [bubbleText]="entry.title" [isSendTextBuble]="true"></text-bubble>
+  <text-bubble [bubbleText]="entry.title" [isUserTextBuble]="true"></text-bubble>
   }
   @empty {
   <text-bubble [imageUrl]="robotImageUrl" bubbleText="Oh no! There are no entries!"></text-bubble>
