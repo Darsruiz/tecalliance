@@ -108,6 +108,12 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  deleteEntry(entry: ITodoEntry) {
+    const confirmation = confirm('Are you sure to delete this entry?')
+    if (confirmation)
+      this.deleteEntryServer(entry)
+  }
+
   deleteEntryServer(entry: ITodoEntry) {
     this.isLoading = true
     if (entry.id)
@@ -133,7 +139,7 @@ export class HomeComponent implements OnInit {
           this.chatContainer.nativeElement.scrollTo({
             top: this.chatContainer.nativeElement.scrollHeight,
             behavior: 'smooth'
-          });          
+          });
 
       }, 200);
     } catch (err) { }

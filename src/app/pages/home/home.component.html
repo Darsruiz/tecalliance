@@ -2,7 +2,7 @@
 <div class="overflow-y-auto" style="max-height: calc(100vh - 8rem);" #chatContainer>
   @for (entry of entries; track $index) {
   <text-bubble [bubbleText]="entry.title" [isCompleted]="entry.completed"
-    (modifyBubble)="modifyEntryServer($event, entry)" (deleteBubble)="deleteEntryServer(entry)"></text-bubble>
+    (modifyBubble)="modifyEntryServer($event, entry)" (deleteBubble)="deleteEntry(entry)"></text-bubble>
   }
   @empty {
   <text-bubble bubbleText="Oh no! There are no entries!"></text-bubble>
