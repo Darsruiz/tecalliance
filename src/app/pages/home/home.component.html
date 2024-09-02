@@ -1,14 +1,13 @@
-<div class="btm-nav grid grid-cols-12 px-3">
-  <input type="text" placeholder="Type here" class="input input-bordered w-full col-span-11" />
-  <a class="btn btn-ghost text-xl m-3"><ng-icon name="heroPaperAirplane"></ng-icon></a>
-</div>
-
-<div class="m-4">
-
+<div class="mx-4 overflow-y-auto" style="max-height: calc(100vh - 8rem);">
   @for (entry of entries; track $index) {
-  <text-bubble [bubbleText]="entry.title" [isUserTextBuble]="true"></text-bubble>
+  <text-bubble [bubbleText]="entry.title" [isUserTextBuble]="true" [isCompleted]="entry.completed"></text-bubble>
   }
   @empty {
   <text-bubble [imageUrl]="robotImageUrl" bubbleText="Oh no! There are no entries!"></text-bubble>
   }
+</div>
+
+<div class="btm-nav grid grid-cols-12 ps-3 z-10">
+  <input type="text" placeholder="Send a text!" class="input input-bordered w-full col-span-11" [(ngModel)]="message" />
+  <button [disabled]="message().length == 0" (click)="addEntry()" class="btn btn-ghost text-xl m-3"><ng-icon name="heroPaperAirplane"></ng-icon></button>
 </div>
