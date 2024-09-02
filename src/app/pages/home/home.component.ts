@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef | undefined;
   isLoading = false
 
-  robotImageUrl = 'https://www.flaticon.com/download/icon/3273762?icon_id=3273762&author=219&team=219&keyword=Robot&pack=3273628&style=1&style_id=914&format=png&color=%23000000&colored=2&size=512&selection=1&type=standard'
   message = model<string>('');
   entries: ITodoEntry[] = []
   currentUserId = 1
@@ -72,7 +71,6 @@ export class HomeComponent implements OnInit {
   }
   
   modifyEntryServer(event: string, entry: ITodoEntry) {
-    debugger
     this.isLoading = true
     const modifiedEntry = { ...entry }
     modifiedEntry.title = event

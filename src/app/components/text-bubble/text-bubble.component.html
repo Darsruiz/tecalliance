@@ -1,10 +1,10 @@
 <div class="flex">
     <div class="tooltip cursor-pointer select-none" data-tip="Click me to complete/undo the task!"
         (click)="changeTaskCompletion()">
-        <div class="chat" [ngClass]="{'chat-start': !isUserTextBuble(), 'chat-end': isUserTextBuble()}">
+        <div class="chat chat-start">
             <div class="chat-image avatar">
                 <div class="w-10 rounded-full">
-                    <img alt="User Image" [src]="imageUrl()" />
+                    <img alt="User Image" [src]="imageUrl" />
                 </div>
             </div>
             @if (isModifying) {

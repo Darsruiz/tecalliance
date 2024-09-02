@@ -18,11 +18,9 @@ export class TextBubbleComponent {
   deleteBubble = output();
   isModifying = false
   modifiedText = ''
-  constructor() { }
 
-  isUserTextBuble = input<boolean>(false)
   isCompleted = model<boolean>(true)
-  imageUrl = input<string>('https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp')
+  imageUrl = 'https://www.flaticon.com/download/icon/3273762?icon_id=3273762&author=219&team=219&keyword=Robot&pack=3273628&style=1&style_id=914&format=png&color=%23000000&colored=2&size=512&selection=1&type=standard'
   bubbleText = model<string>('Empty message')
 
   changeTaskCompletion() {
