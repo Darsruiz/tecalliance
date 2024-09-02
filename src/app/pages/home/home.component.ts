@@ -5,6 +5,8 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroEllipsisHorizontal, heroPaperAirplane } from '@ng-icons/heroicons/outline';
 import { FormsModule } from '@angular/forms';
 import { EntriesService } from '../../services/entries.service';
+import { UsersService } from '../../services/users.service';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-home',
@@ -20,11 +22,32 @@ export class HomeComponent implements OnInit {
 
   message = model<string>('');
   entries: ITodoEntry[] = []
-  currentUserId = 1
+  users: IUser[] = []
+  email: string = ''
+  currentUserId = 0
 
-  constructor(private entriesService: EntriesService) { }
+  constructor(
+    private entriesService: EntriesService,
+    private usersService: UsersService,
+  ) { }
   ngOnInit(): void {
-    this.fetchEntries();
+    this.fetchEmails();
+  }
+
+  fetchEmails() {
+    this.usersService.fetchUsers().subscribe(data => { this.users = data });
+  }
+
+
+  checkEmail() {
+    const user = this.users.find(x => x.email.toLowerCase() == this.email.toLowerCase())
+    if (user) {
+      this.currentUserId = user.id
+      this.fetchEntries()
+    }
+    else
+      alert('Email not found. Try Again')
+
   }
 
   fetchEntries() {

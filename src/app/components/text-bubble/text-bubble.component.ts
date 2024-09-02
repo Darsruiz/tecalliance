@@ -1,8 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component, input, model, output } from '@angular/core';
+import { Component, model, output } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroPencilSquare, heroTrash } from '@ng-icons/heroicons/outline';
-import { EntriesService } from '../../services/entries.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

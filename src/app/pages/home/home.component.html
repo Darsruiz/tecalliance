@@ -1,3 +1,4 @@
+@if (currentUserId) {
 <div class="overflow-y-auto" style="max-height: calc(100vh - 8rem);" #chatContainer>
   @for (entry of entries; track $index) {
   <text-bubble [bubbleText]="entry.title" [isCompleted]="entry.completed"
@@ -21,3 +22,17 @@
     }
   </button>
 </div>
+}
+@else {
+
+<div class="flex justify-center items-center h-screen">
+  <div class="bg-white p-6 rounded shadow-md">
+    <h1 class="text-2xl text-center mb-4"> To-Do </h1>
+
+    <input type="text" placeholder="Sincere@april.biz" class="input input-bordered w-full col-span-11" [(ngModel)]="email"
+      maxlength="100" />
+    <button [disabled]="email.length == 0" (click)="checkEmail()" class="btn btn-ghost text-xl w-full mt-3">Login</button>
+  </div>
+</div>
+
+}
