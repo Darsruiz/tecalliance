@@ -1,4 +1,4 @@
-<div class="mx-4 overflow-y-auto" style="max-height: calc(100vh - 8rem);">
+<div class="overflow-y-auto" style="max-height: calc(100vh - 8rem);" #chatContainer>
   @for (entry of entries; track $index) {
   <text-bubble [bubbleText]="entry.title" [isUserTextBuble]="true" [isCompleted]="entry.completed"></text-bubble>
   }
@@ -8,6 +8,6 @@
 </div>
 
 <div class="btm-nav grid grid-cols-12 ps-3 z-10">
-  <input type="text" placeholder="Send a text!" class="input input-bordered w-full col-span-11" [(ngModel)]="message" />
+  <input type="text" placeholder="Send a text!" class="input input-bordered w-full col-span-11" [(ngModel)]="message" maxlength="250" />
   <button [disabled]="message().length == 0" (click)="addEntry()" class="btn btn-ghost text-xl m-3"><ng-icon name="heroPaperAirplane"></ng-icon></button>
 </div>
