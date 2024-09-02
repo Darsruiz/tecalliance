@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   fetchEntries() {
-    this.entriesService.getEntries().subscribe({
+    this.entriesService.getEntries(this.currentUserId).subscribe({
       next: (data) => {
         this.entries = data.filter(x => x.userId == this.currentUserId);
         console.log(data)
@@ -69,12 +69,12 @@ export class HomeComponent implements OnInit {
       }
     })
   }
-  
+
   modifyEntryServer(event: string, entry: ITodoEntry) {
     this.isLoading = true
     const modifiedEntry = { ...entry }
     modifiedEntry.title = event
-    this.entriesService.modifyEntry(entry).subscribe({
+    this.entriesService.modifyEntry(modifiedEntry).subscribe({
       next: () => {
         this.isLoading = false
       },
@@ -83,6 +83,24 @@ export class HomeComponent implements OnInit {
         alert('Error modifying entry, the page will reload')
       }
     })
+  }
+
+  deleteEntryServer(entry: ITodoEntry) {
+    this.isLoading = true
+    if (entry.id)
+      return this.entriesService.deleteEntry(entry.id).subscribe(
+        {
+          next: () => {
+            this.isLoading = false
+            this.entries = this.entries.filter(x => x.id != entry.id)
+          },
+          error: () => {
+            this.isLoading = false
+            alert('Error deleting entry, the page will reload')
+          }
+        })
+    else
+      return alert('Error deleting entry, id not found')
   }
 
   private scrollToBottom(): void {
