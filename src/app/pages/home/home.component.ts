@@ -75,7 +75,6 @@ export class HomeComponent implements OnInit {
       userId: this.currentUserId
     }
     this.addEntryServer(newEntry)
-    this.scrollToBottom()
   }
 
   addEntryServer(entry: ITodoEntry) {
@@ -85,6 +84,7 @@ export class HomeComponent implements OnInit {
         this.isLoading = false
         this.entries.push(entry)
         this.message.update(x => x = '')
+        this.scrollToBottom()
       },
       error: () => {
         this.isLoading = false
@@ -128,8 +128,14 @@ export class HomeComponent implements OnInit {
 
   private scrollToBottom(): void {
     try {
-      if (this.chatContainer)
-        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      setTimeout(() => {
+        if (this.chatContainer)
+          this.chatContainer.nativeElement.scrollTo({
+            top: this.chatContainer.nativeElement.scrollHeight,
+            behavior: 'smooth'
+          });          
+
+      }, 200);
     } catch (err) { }
   }
 }
