@@ -1,1 +1,14 @@
-<p>home works!</p>
+<div class="btm-nav grid grid-cols-12 px-3">
+  <input type="text" placeholder="Type here" class="input input-bordered w-full col-span-11" />
+  <a class="btn btn-ghost text-xl m-3"><ng-icon name="heroPaperAirplane"></ng-icon></a>
+</div>
+
+<div class="m-4">
+
+  @for (entry of entries; track $index) {
+  <text-bubble [bubbleText]="entry.title" [isSendTextBuble]="true"></text-bubble>
+  }
+  @empty {
+  <text-bubble [imageUrl]="robotImageUrl" bubbleText="Oh no! There are no entries!"></text-bubble>
+  }
+</div>
