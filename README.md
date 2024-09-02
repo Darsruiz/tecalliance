@@ -1,5 +1,8 @@
 # Tecalliance
 
+## Commands
+npx tailwindcss -i ./src/styles.scss -o ./src/output.css --watch
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
 
 ## Development server
