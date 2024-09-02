@@ -7,11 +7,21 @@
                     <img alt="User Image" [src]="imageUrl()" />
                 </div>
             </div>
+            @if (isModifying) {
+            <input type="text" placeholder="Send a text!" class="input input-bordered" [(ngModel)]="modifiedText"
+                maxlength="250" />
+            <button (click)="emitTextModifications()" class="btn btn-ghost">
+                Modify
+            </button>
+            }
+            @else {
             <div class="chat-bubble" [ngClass]="{ 'line-through': !isCompleted() }">{{ bubbleText() }}</div>
+            }
+
         </div>
     </div>
-    <div class="flex justify-center items-center" >
-        <ng-icon (click)="modifyText()" class="m-2 cursor-pointer" name="heroPencilSquare"></ng-icon>
+    <div class="flex justify-center items-center">
+        <ng-icon (click)="toggleModifyText()" class="m-2 cursor-pointer" name="heroPencilSquare"></ng-icon>
         <ng-icon (click)="removeBubble()" class="m-2 cursor-pointer" name="heroTrash"></ng-icon>
     </div>
 </div>

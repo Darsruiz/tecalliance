@@ -2,7 +2,7 @@ import { Component, ElementRef, model, OnInit, ViewChild } from '@angular/core';
 import { ITodoEntry } from '../../interfaces/todo-entry.interface';
 import { TextBubbleComponent } from '../../components/text-bubble/text-bubble.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroPaperAirplane } from '@ng-icons/heroicons/outline';
+import { heroEllipsisHorizontal, heroPaperAirplane } from '@ng-icons/heroicons/outline';
 import { FormsModule } from '@angular/forms';
 import { EntriesService } from '../../services/entries.service';
 
@@ -12,11 +12,12 @@ import { EntriesService } from '../../services/entries.service';
   imports: [TextBubbleComponent, NgIconComponent, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [provideIcons({ heroPaperAirplane })],
+  providers: [provideIcons({ heroPaperAirplane, heroEllipsisHorizontal })],
 })
 export class HomeComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef | undefined;
-  
+  isLoading = false
+
   robotImageUrl = 'https://www.flaticon.com/download/icon/3273762?icon_id=3273762&author=219&team=219&keyword=Robot&pack=3273628&style=1&style_id=914&format=png&color=%23000000&colored=2&size=512&selection=1&type=standard'
   message = model<string>('');
   entries: ITodoEntry[] = []
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
   fetchEntries() {
     this.entriesService.getEntries().subscribe({
       next: (data) => {
-        this.entries = data.filter(x => x.userId == this.currentUserId).sort((a, b) => a.id - b.id);
+        this.entries = data.filter(x => x.userId == this.currentUserId);
         console.log(data)
       }, error: () => {
         this.entries = [
@@ -46,22 +47,50 @@ export class HomeComponent implements OnInit {
   }
 
   addEntry() {
-    const nextId = this.entries.at(-1)?.id ?? 0;
     const newEntry: ITodoEntry = {
       completed: false,
-      id: nextId,
       title: this.message(),
       userId: this.currentUserId
     }
-    this.message.update(x => x = '')
-    this.entries.push(newEntry)
+    this.addEntryServer(newEntry)
     this.scrollToBottom()
+  }
+
+  addEntryServer(entry: ITodoEntry) {
+    this.isLoading = true
+    this.entriesService.addEntry(entry).subscribe({
+      next: () => {
+        this.isLoading = false
+        this.entries.push(entry)
+        this.message.update(x => x = '')
+      },
+      error: () => {
+        this.isLoading = false
+        alert('Error adding entry')
+      }
+    })
+  }
+  
+  modifyEntryServer(event: string, entry: ITodoEntry) {
+    debugger
+    this.isLoading = true
+    const modifiedEntry = { ...entry }
+    modifiedEntry.title = event
+    this.entriesService.modifyEntry(entry).subscribe({
+      next: () => {
+        this.isLoading = false
+      },
+      error: () => {
+        this.isLoading = false
+        alert('Error modifying entry, the page will reload')
+      }
+    })
   }
 
   private scrollToBottom(): void {
     try {
       if (this.chatContainer)
-      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch(err) { }
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 }
