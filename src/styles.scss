@@ -2,15 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'styles/topography';
+@import "styles/topography";
 
-html, body {
-    height: 100%;
-    margin: 0;
-  }
-  
+html {
+  height: 100%;
+}
+
 body {
-    @extend .background-topography;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
+  @extend .background-topography;
+  min-height: 100%;
+}

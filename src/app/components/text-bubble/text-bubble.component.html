@@ -1,8 +1,17 @@
-<div class="chat" [ngClass]="{'chat-start': !isUserTextBuble(), 'chat-end': isUserTextBuble()}">
-    <div class="chat-image avatar">
-        <div class="w-10 rounded-full">
-            <img alt="User Image" [src]="imageUrl()" />
+<div class="flex">
+    <div class="tooltip cursor-pointer select-none" data-tip="Click me to complete/undo the task!"
+        (click)="changeTaskCompletion()">
+        <div class="chat" [ngClass]="{'chat-start': !isUserTextBuble(), 'chat-end': isUserTextBuble()}">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    <img alt="User Image" [src]="imageUrl()" />
+                </div>
+            </div>
+            <div class="chat-bubble" [ngClass]="{ 'line-through': !isCompleted() }">{{ bubbleText() }}</div>
         </div>
     </div>
-    <div class="chat-bubble">{{ bubbleText() }}</div>
+    <div class="flex justify-center items-center" >
+        <ng-icon (click)="modifyText()" class="m-2 cursor-pointer" name="heroPencilSquare"></ng-icon>
+        <ng-icon (click)="removeBubble()" class="m-2 cursor-pointer" name="heroTrash"></ng-icon>
+    </div>
 </div>
