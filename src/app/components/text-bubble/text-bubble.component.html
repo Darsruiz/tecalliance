@@ -1,0 +1,8 @@
+<div class="chat" [ngClass]="{'chat-start': isSendTextBuble, 'chat-end': !isSendTextBuble}">
+    <div class="chat-image avatar">
+        <div class="w-10 rounded-full">
+            <img alt="User Image" [src]="imageUrl()" />
+        </div>
+    </div>
+    <div class="chat-bubble">{{ bubbleText() }}</div>
+</div>
