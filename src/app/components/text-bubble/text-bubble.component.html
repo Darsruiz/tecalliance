@@ -15,7 +15,7 @@
             </button>
             }
             @else {
-            <div class="chat-bubble" [ngClass]="{ 'line-through': !isCompleted() }">{{ bubbleText() }}</div>
+            <div class="chat-bubble" [ngClass]="{ 'chat-bubble-success line-through italic': !isCompleted() }">{{ bubbleText() }}</div>
             }
 
         </div>
